@@ -23,6 +23,23 @@ type Page = "landing" | "login" | "register" | "dashboard" | "tasks" | "finance"
   "bills" | "documents" | "student" | "goals" | "habits" | "family" | "health" |
   "emergency" | "ai" | "notifications" | "settings" | "admin";
 
+function LogoMark({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 96 96" aria-hidden="true" className={className}>
+      <defs>
+        <linearGradient id="lifesync-logo-gradient" x1="12" y1="78" x2="84" y2="18" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#4338ca" />
+          <stop offset="1" stopColor="#22c7f5" />
+        </linearGradient>
+      </defs>
+      <path d="M33 26c-11 10-17 24-17 39 0 23 18 41 41 41 13 0 25-5 34-14" fill="none" stroke="url(#lifesync-logo-gradient)" strokeWidth="6" strokeLinecap="round" />
+      <path d="M39 25v38c0 3 2 5 5 5h25" fill="none" stroke="url(#lifesync-logo-gradient)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M54 38h20c8 0 14 6 14 14s-6 14-14 14H62c-8 0-14-6-14-14s6-14 14-14" fill="none" stroke="url(#lifesync-logo-gradient)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M46 18h25c18 0 33 15 33 33 0 8-1 13-3 19" fill="none" stroke="url(#lifesync-logo-gradient)" strokeWidth="6" strokeLinecap="round" opacity="0.9" />
+    </svg>
+  );
+}
+
 // ─── Sample Data ──────────────────────────────────────────────────────────────
 const monthlyData = [
   { month: "Jan", income: 35000, expense: 21000 },
@@ -218,9 +235,7 @@ function LandingPage({ onNavigate, dark, setDark }: { onNavigate: (p: Page) => v
       <header className="sticky top-0 z-50 bg-card/80 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">J</span>
-            </div>
+            <LogoMark className="w-8 h-8 flex-shrink-0" />
             <span className="font-bold text-lg text-foreground">LifeSync</span>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">
@@ -447,9 +462,7 @@ function LandingPage({ onNavigate, dark, setDark }: { onNavigate: (p: Page) => v
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-2 sm:grid-cols-5 gap-8">
           <div className="col-span-2 sm:col-span-2">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center">
-                <span className="text-white font-bold text-xs">J</span>
-              </div>
+              <LogoMark className="w-7 h-7 flex-shrink-0" />
               <span className="font-bold">LifeSync</span>
             </div>
             <p className="text-white/60 text-sm leading-relaxed">Manage Your Life, All in One Place.</p>
@@ -497,9 +510,7 @@ function AuthPage({ mode, onNavigate }: { mode: "login" | "register"; onNavigate
       {/* Left panel */}
       <div className="hidden lg:flex flex-col justify-between w-[480px] bg-secondary text-white p-12">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center">
-            <span className="font-bold text-sm">J</span>
-          </div>
+          <LogoMark className="w-8 h-8 flex-shrink-0" />
           <span className="font-bold text-lg">LifeSync</span>
         </div>
         <div>
@@ -655,9 +666,7 @@ function AppShell({ page, onNavigate, dark, setDark, children, onLogout }: {
   const SidebarContent = () => (
     <>
       <div className="p-4 flex items-center gap-3 border-b border-sidebar-border">
-        <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
-          <span className="text-white font-bold text-sm">J</span>
-        </div>
+        <LogoMark className="w-8 h-8 flex-shrink-0" />
         {sidebarOpen && (
           <div className="overflow-hidden">
             <p className="font-bold text-sm text-white leading-none">LifeSync</p>
@@ -3725,9 +3734,7 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       {/* Admin Sidebar */}
       <aside className={`hidden lg:flex flex-col bg-sidebar flex-shrink-0 transition-all duration-300 ${sidebarOpen ? "w-56" : "w-16"}`}>
         <div className="p-4 flex items-center gap-3 border-b border-sidebar-border">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center flex-shrink-0">
-            <Shield size={15} className="text-white" />
-          </div>
+          <LogoMark className="w-8 h-8 flex-shrink-0" />
           {sidebarOpen && <div><p className="font-bold text-sm text-white leading-none">LifeSync</p><p className="text-xs text-white/50">Admin Panel</p></div>}
         </div>
         <nav className="flex-1 p-3 space-y-0.5 overflow-y-auto">
@@ -3829,4 +3836,7 @@ export default function App() {
     </AppShell>
   );
 }
+
+
+
 
