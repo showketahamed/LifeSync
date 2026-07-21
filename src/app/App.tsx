@@ -136,9 +136,9 @@ function Badge({ children, variant = "default" }: { children: React.ReactNode; v
   );
 }
 
-function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function Card({ children, className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={`bg-card text-card-foreground rounded-xl border border-border shadow-sm ${className}`}>
+    <div {...props} className={`bg-card text-card-foreground rounded-xl border border-border shadow-sm ${className}`}>
       {children}
     </div>
   );
@@ -1154,6 +1154,7 @@ function FinancePage() {
   const addTransaction = () => {
     if (!form.desc.trim() || !form.amount) return;
     const newTx = {
+      id: Date.now(),
       desc: form.desc,
       category: form.category,
       type: form.type as "credit" | "debit",
@@ -3828,3 +3829,8 @@ export default function App({ onLogout }: { onLogout?: () => void }) {
     </AppShell>
   );
 }
+
+
+
+
+
