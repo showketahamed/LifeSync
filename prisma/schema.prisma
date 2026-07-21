@@ -1,0 +1,745 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum GoalStatus {
+  ACTIVE
+  COMPLETED
+  PAUSED
+  ARCHIVED
+}
+
+enum BillStatus {
+  UPCOMING
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum DocumentStatus {
+  ACTIVE
+  EXPIRING
+  EXPIRED
+  ARCHIVED
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+enum FamilyRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum SubscriptionStatus {
+  TRIAL
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+  EXPIRED
+}
+
+model User {
+  id                  String          @id @default(cuid())
+  email               String          @unique
+  emailVerified       DateTime?
+  passwordHash        String?
+  phone               String?         @unique
+  status              UserStatus      @default(ACTIVE)
+  onboardingCompleted Boolean         @default(false)
+  preferredLocale     String          @default("en")
+  deletedAt           DateTime?
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  profile             Profile?
+  accounts            Account[]
+  sessions            Session[]
+  tasks               Task[]
+  habits              Habit[]
+  goals               Goal[]
+  incomes             Income[]
+  expenses            Expense[]
+  budgets             Budget[]
+  bills               Bill[]
+  documents           Document[]
+  notifications       Notification[]
+  emergencyContacts   EmergencyContact[]
+  semesters           Semester[]
+  familyMemberships   FamilyMember[]
+  medicines           Medicine[]
+  appointments        DoctorAppointment[]
+  healthNotes         HealthNote[]
+  subscriptions       Subscription[]
+  supportTickets      SupportTicket[]
+  feedback            Feedback[]
+  userRoles           UserRole[]
+  auditEvents         AdminAuditLog[] @relation("AuditActor")
+}
+
+model Account {
+  id                String @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refreshToken      String? @db.Text
+  accessToken       String? @db.Text
+  expiresAt         Int?
+  tokenType         String?
+  scope             String?
+  idToken           String? @db.Text
+  sessionState      String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Profile {
+  id                   String @id @default(cuid())
+  userId               String @unique
+  fullName             String?
+  displayName          String?
+  profileImagePath     String?
+  timezone             String @default("Asia/Dhaka")
+  currency             String @default("BDT")
+  theme                String @default("system")
+  language             String @default("en")
+  dateOfBirth          DateTime?
+  occupation           String?
+  address              String?
+  dashboardPreferences Json?
+  user                 User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Role {
+  id          String           @id @default(cuid())
+  name        String           @unique
+  slug        String           @unique
+  description String?
+  users       UserRole[]
+  permissions RolePermission[]
+}
+
+model Permission {
+  id          String           @id @default(cuid())
+  key         String           @unique
+  description String?
+  roles       RolePermission[]
+}
+
+model UserRole {
+  userId String
+  roleId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+}
+
+model Task {
+  id             String     @id @default(cuid())
+  userId         String
+  title          String
+  description    String?
+  status         TaskStatus @default(TODO)
+  priority       Priority   @default(MEDIUM)
+  category       String?
+  dueAt          DateTime?
+  reminderAt     DateTime?
+  recurrenceRule String?
+  completedAt    DateTime?
+  deletedAt      DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subtasks       TaskSubtask[]
+
+  @@index([userId, status, dueAt])
+}
+
+model TaskSubtask {
+  id          String    @id @default(cuid())
+  taskId      String
+  title       String
+  isCompleted Boolean   @default(false)
+  completedAt DateTime?
+  orderIndex  Int       @default(0)
+  task        Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model Habit {
+  id              String   @id @default(cuid())
+  userId          String
+  name            String
+  icon            String?
+  frequencyType   String
+  frequencyConfig Json?
+  reminderTime    String?
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  entries         HabitEntry[]
+
+  @@index([userId, isActive])
+}
+
+model HabitEntry {
+  id        String   @id @default(cuid())
+  habitId   String
+  userId    String
+  entryDate DateTime
+  status    String   @default("completed")
+  createdAt DateTime @default(now())
+  habit     Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+
+  @@unique([habitId, entryDate])
+  @@index([userId, entryDate])
+}
+
+model Goal {
+  id           String     @id @default(cuid())
+  userId       String
+  title        String
+  category     String?
+  targetValue  Decimal?   @db.Decimal(14, 2)
+  currentValue Decimal    @default(0) @db.Decimal(14, 2)
+  unit         String?
+  deadline     DateTime?
+  status       GoalStatus @default(ACTIVE)
+  notes        String?
+  color        String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  milestones   GoalMilestone[]
+
+  @@index([userId, status])
+}
+
+model GoalMilestone {
+  id          String   @id @default(cuid())
+  goalId      String
+  title       String
+  targetValue Decimal? @db.Decimal(14, 2)
+  completedAt DateTime?
+  orderIndex  Int      @default(0)
+  goal        Goal     @relation(fields: [goalId], references: [id], onDelete: Cascade)
+}
+
+model Income {
+  id            String   @id @default(cuid())
+  userId        String
+  amount        Decimal  @db.Decimal(14, 2)
+  category      String
+  source        String?
+  paymentMethod String?
+  receivedAt    DateTime @default(now())
+  notes         String?
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, receivedAt])
+}
+
+model Expense {
+  id            String   @id @default(cuid())
+  userId        String
+  amount        Decimal  @db.Decimal(14, 2)
+  category      String
+  merchant      String?
+  paymentMethod String?
+  spentAt       DateTime @default(now())
+  notes         String?
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, spentAt])
+}
+
+model Budget {
+  id               String   @id @default(cuid())
+  userId           String
+  name             String
+  category         String?
+  periodMonth      DateTime
+  limitAmount      Decimal  @db.Decimal(14, 2)
+  warningThreshold Int      @default(80)
+  createdAt        DateTime @default(now())
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name, periodMonth])
+}
+
+model Bill {
+  id             String     @id @default(cuid())
+  userId         String
+  name           String
+  provider       String?
+  category       String?
+  amount         Decimal    @db.Decimal(14, 2)
+  currency       String     @default("BDT")
+  status         BillStatus @default(UPCOMING)
+  dueDate        DateTime
+  paymentMethod  String?
+  isRecurring    Boolean    @default(false)
+  recurrenceRule String?
+  lastPaidAt     DateTime?
+  notes          String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payments       Payment[]
+
+  @@index([userId, status, dueDate])
+}
+
+model Payment {
+  id        String   @id @default(cuid())
+  userId    String
+  billId    String?
+  amount    Decimal  @db.Decimal(14, 2)
+  currency  String   @default("BDT")
+  method    String?
+  status    String   @default("completed")
+  reference String?
+  paidAt    DateTime?
+  createdAt DateTime @default(now())
+  bill      Bill?    @relation(fields: [billId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+}
+
+model Document {
+  id                      String         @id @default(cuid())
+  userId                  String
+  category                String
+  name                    String
+  maskedDocumentNumber    String?
+  encryptedDocumentNumber String?
+  issueDate               DateTime?
+  expiryDate              DateTime?
+  status                  DocumentStatus @default(ACTIVE)
+  storageKey              String?
+  mimeType                String?
+  fileSize                Int?
+  officialReferenceUrl    String?
+  renewalNotes            String?
+  deletedAt               DateTime?
+  createdAt               DateTime       @default(now())
+  updatedAt               DateTime       @updatedAt
+  user                    User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiryDate])
+}
+
+model Notification {
+  id                  String             @id @default(cuid())
+  userId              String
+  type                String
+  title               String
+  body                String
+  isRead              Boolean            @default(false)
+  isImportant         Boolean            @default(false)
+  relatedResourceType String?
+  relatedResourceId   String?
+  deliveryStatus      NotificationStatus @default(PENDING)
+  failureReason       String?
+  createdAt           DateTime           @default(now())
+  readAt              DateTime?
+  user                User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead, createdAt])
+}
+
+model EmergencyContact {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  relation  String?
+  phone     String
+  email     String?
+  address   String?
+  priority  Int      @default(1)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, priority])
+}
+
+model Semester {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  startDate DateTime?
+  endDate   DateTime?
+  status    String   @default("active")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courses   Course[]
+
+  @@index([userId, status])
+}
+
+model Course {
+  id          String          @id @default(cuid())
+  userId      String
+  semesterId  String
+  code        String
+  name        String
+  credits     Decimal?        @db.Decimal(4, 1)
+  instructor  String?
+  semester    Semester        @relation(fields: [semesterId], references: [id], onDelete: Cascade)
+  assignments Assignment[]
+  exams       Exam[]
+  schedules   ClassSchedule[]
+
+  @@unique([semesterId, code])
+  @@index([userId])
+}
+
+model ClassSchedule {
+  id        String @id @default(cuid())
+  userId    String
+  courseId  String
+  dayOfWeek Int
+  startTime String
+  endTime   String
+  location  String?
+  course    Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([userId, dayOfWeek])
+}
+
+model Assignment {
+  id                   String   @id @default(cuid())
+  userId               String
+  courseId             String
+  title                String
+  description          String?
+  deadline             DateTime?
+  priority             Priority @default(MEDIUM)
+  status               String   @default("pending")
+  submissionStorageKey String?
+  submissionNotes      String?
+  submittedAt          DateTime?
+  course               Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([userId, deadline])
+}
+
+model Exam {
+  id            String   @id @default(cuid())
+  userId        String
+  courseId      String
+  title         String
+  examAt        DateTime?
+  location      String?
+  totalMarks    Decimal? @db.Decimal(8, 2)
+  obtainedMarks Decimal? @db.Decimal(8, 2)
+  grade         String?
+  course        Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([userId, examAt])
+}
+
+model Family {
+  id              String             @id @default(cuid())
+  name            String
+  createdByUserId String
+  createdAt       DateTime           @default(now())
+  members         FamilyMember[]
+  invitations     FamilyInvitation[]
+  tasks           FamilyTask[]
+  sharedExpenses  SharedExpense[]
+
+  @@index([createdByUserId])
+}
+
+model FamilyMember {
+  id       String     @id @default(cuid())
+  familyId String
+  userId   String
+  role     FamilyRole @default(MEMBER)
+  joinedAt DateTime   @default(now())
+  family   Family     @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([familyId, userId])
+  @@index([userId])
+}
+
+model FamilyInvitation {
+  id           String   @id @default(cuid())
+  familyId     String
+  emailOrPhone String
+  token        String   @unique
+  expiresAt    DateTime
+  usedAt       DateTime?
+  status       String   @default("pending")
+  family       Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId, status])
+}
+
+model FamilyTask {
+  id               String     @id @default(cuid())
+  familyId         String
+  createdByUserId  String
+  assignedToUserId String?
+  title            String
+  description      String?
+  status           TaskStatus @default(TODO)
+  dueAt            DateTime?
+  family           Family     @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId, status])
+}
+
+model SharedExpense {
+  id              String   @id @default(cuid())
+  familyId        String
+  createdByUserId String
+  amount          Decimal  @db.Decimal(14, 2)
+  category        String?
+  notes           String?
+  incurredAt      DateTime @default(now())
+  family          Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId, incurredAt])
+}
+
+model Medicine {
+  id           String   @id @default(cuid())
+  userId       String
+  name         String
+  dosage       String?
+  instructions String?
+  startDate    DateTime?
+  endDate      DateTime?
+  isActive     Boolean  @default(true)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  schedules    MedicineSchedule[]
+  logs         MedicineLog[]
+
+  @@index([userId, isActive])
+}
+
+model MedicineSchedule {
+  id         String @id @default(cuid())
+  medicineId String
+  timeOfDay  String
+  daysOfWeek Json?
+  medicine   Medicine @relation(fields: [medicineId], references: [id], onDelete: Cascade)
+}
+
+model MedicineLog {
+  id           String   @id @default(cuid())
+  medicineId   String
+  userId       String
+  scheduledFor DateTime
+  takenAt      DateTime?
+  status       String   @default("pending")
+  medicine     Medicine @relation(fields: [medicineId], references: [id], onDelete: Cascade)
+
+  @@index([userId, scheduledFor])
+}
+
+model DoctorAppointment {
+  id            String   @id @default(cuid())
+  userId        String
+  doctorName    String
+  specialty     String?
+  appointmentAt DateTime
+  location      String?
+  notes         String?
+  status        String   @default("scheduled")
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, appointmentAt])
+}
+
+model HealthNote {
+  id            String   @id @default(cuid())
+  userId        String
+  title         String
+  encryptedBody String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model SubscriptionPlan {
+  id              String         @id @default(cuid())
+  name            String
+  slug            String         @unique
+  price           Decimal        @db.Decimal(14, 2)
+  currency        String         @default("BDT")
+  billingInterval String
+  features        Json?
+  isActive        Boolean        @default(true)
+  subscriptions   Subscription[]
+}
+
+model Subscription {
+  id          String             @id @default(cuid())
+  userId      String
+  planId      String
+  status      SubscriptionStatus @default(TRIAL)
+  startsAt    DateTime           @default(now())
+  endsAt      DateTime?
+  cancelledAt DateTime?
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan        SubscriptionPlan   @relation(fields: [planId], references: [id])
+
+  @@index([userId, status])
+}
+
+model SupportTicket {
+  id        String       @id @default(cuid())
+  userId    String
+  subject   String
+  category  String?
+  priority  Priority     @default(MEDIUM)
+  status    TicketStatus @default(OPEN)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  SupportMessage[]
+
+  @@index([userId, status])
+}
+
+model SupportMessage {
+  id           String        @id @default(cuid())
+  ticketId     String
+  authorUserId String
+  body         String
+  isInternal   Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  ticket       SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@index([ticketId, createdAt])
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  userId    String
+  rating    Int?
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model GovernmentService {
+  id             String                         @id @default(cuid())
+  category       String
+  name           String
+  slug           String                         @unique
+  officialUrl    String
+  fees           String?
+  processingTime String?
+  status         String                         @default("published")
+  summary        String?
+  requirements   GovernmentServiceRequirement[]
+}
+
+model GovernmentServiceRequirement {
+  id         String            @id @default(cuid())
+  serviceId  String
+  text       String
+  orderIndex Int               @default(0)
+  service    GovernmentService @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+}
+
+model Announcement {
+  id          String    @id @default(cuid())
+  title       String
+  body        String
+  audience    String    @default("all")
+  publishedAt DateTime?
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+}
+
+model AdminAuditLog {
+  id            String   @id @default(cuid())
+  actorUserId   String
+  action        String
+  targetType    String
+  targetId      String?
+  beforeSummary Json?
+  afterSummary  Json?
+  requestId     String?
+  ipMetadata    Json?
+  createdAt     DateTime @default(now())
+  actor         User     @relation("AuditActor", fields: [actorUserId], references: [id], onDelete: Restrict)
+
+  @@index([actorUserId, createdAt])
+  @@index([targetType, targetId])
+}
