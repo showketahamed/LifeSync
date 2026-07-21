@@ -1,0 +1,1011 @@
+Create a complete high-fidelity Figma UI/UX prototype for a Bangladesh-focused personal life management web application named:
+
+“JibonOS Bangladesh”
+
+Tagline:
+“Manage Your Life, All in One Place”
+
+Project Overview:
+JibonOS Bangladesh is a modern personal life management platform designed for Bangladeshi students, young professionals, and families. The platform combines task management, personal finance, bill reminders, government document tracking, academic planning, goals, family responsibilities, health reminders, and AI-powered personal assistance in one secure dashboard.
+
+The application will later be developed using Next.js, TypeScript, Tailwind CSS, Shadcn UI, PostgreSQL, Prisma, and Auth.js. Therefore, create a clean, component-based, developer-friendly design that can be easily converted into reusable Next.js components.
+
+Target Users:
+
+1. University students in Bangladesh
+2. Young professionals
+3. Freelancers
+4. Families managing household responsibilities
+5. Users managing bills, documents, study plans, and financial goals
+
+Design Style:
+
+* Modern SaaS dashboard
+* Clean and professional
+* Minimal but visually engaging
+* Friendly and easy to understand
+* Suitable for both Bangla and English
+* Mobile-first and fully responsive
+* Use cards, charts, icons, tabs, progress bars, calendars, and clean forms
+* Avoid excessive gradients and unnecessary visual clutter
+* Use generous spacing and rounded cards
+* Use subtle shadows and soft borders
+* Maintain strong accessibility and readable typography
+
+Color Palette:
+Primary: Emerald green
+Secondary: Deep navy blue
+Accent: Warm amber
+Background: Soft off-white or very light gray
+Success: Green
+Warning: Amber
+Danger: Red
+Information: Blue
+
+Dark Mode:
+Create both light mode and dark mode designs.
+
+Typography:
+Use a modern English font such as Inter.
+Use a Bangla-compatible font such as Hind Siliguri or Noto Sans Bengali.
+Ensure Bangla and English text have consistent visual hierarchy.
+
+Brand Identity:
+Create a simple logo combining:
+
+* A circular life dashboard
+* A checkmark
+* A leaf or heartbeat-style line
+* The letter “J”
+
+Logo text:
+JibonOS
+
+The logo should feel modern, trustworthy, organized, and suitable for a productivity SaaS application.
+
+Global Layout:
+Desktop:
+
+* Collapsible left sidebar
+* Top navigation bar
+* Main dashboard content area
+* Optional right-side panel for reminders and AI suggestions
+
+Tablet:
+
+* Collapsible sidebar drawer
+* Responsive content grid
+
+Mobile:
+
+* Bottom navigation bar
+* Mobile header
+* Single-column card layout
+* Floating quick-add button
+
+Main Navigation:
+
+1. Dashboard
+2. Tasks
+3. Finance
+4. Bills
+5. Documents
+6. Student Life
+7. Goals
+8. Family
+9. Health
+10. Emergency
+11. AI Assistant
+12. Notifications
+13. Settings
+
+Create the following pages and screens:
+
+1. Landing Page
+
+Create a modern SaaS landing page with:
+
+Header:
+
+* JibonOS logo
+* Home
+* Features
+* How It Works
+* Pricing
+* About
+* English/Bangla language switch
+* Light/Dark mode toggle
+* Login button
+* Get Started button
+
+Hero Section:
+Headline:
+“Your Entire Life, Organized in One Place”
+
+Supporting text:
+“Manage your tasks, expenses, bills, documents, studies, goals, family responsibilities, and daily plans with JibonOS Bangladesh.”
+
+Primary CTA:
+“Start for Free”
+
+Secondary CTA:
+“View Demo”
+
+Include a dashboard preview mockup.
+
+Feature Highlights:
+
+* Smart Personal Dashboard
+* Expense and Budget Manager
+* Bill Reminder
+* Government Document Tracker
+* Student Planner
+* Goal and Habit Tracker
+* Family Management
+* AI Life Assistant
+
+Bangladesh-Specific Section:
+Show icons and examples for:
+
+* bKash
+* Nagad
+* Electricity bill
+* Internet bill
+* Passport
+* NID
+* University routine
+* IELTS preparation
+* Family expenses
+
+How It Works:
+Step 1: Create your account
+Step 2: Add your life information
+Step 3: Track, plan, and receive reminders
+
+Testimonials:
+Create three sample Bangladeshi user testimonials.
+
+Pricing:
+
+* Free
+* Personal Pro
+* Family Plan
+
+Footer:
+
+* Product
+* Company
+* Support
+* Privacy Policy
+* Terms
+* Social links
+
+2. Authentication Pages
+
+Create:
+
+* Login page
+* Registration page
+* Forgot password page
+* OTP verification page
+* Reset password page
+
+Login methods:
+
+* Email and password
+* Phone number and OTP
+* Google login
+
+Registration fields:
+
+* Full name
+* Email
+* Phone number
+* Password
+* Confirm password
+* User type
+* Accept terms and conditions
+
+Use a split-screen layout on desktop and a single-column layout on mobile.
+
+3. User Onboarding
+
+Create a step-by-step onboarding wizard.
+
+Step 1:
+Basic profile information
+
+Step 2:
+Select personal goals:
+
+* Manage expenses
+* Improve productivity
+* Track study
+* Manage bills
+* Save money
+* Organize family responsibilities
+* Manage documents
+* Improve health habits
+
+Step 3:
+Choose preferred modules
+
+Step 4:
+Add monthly income and budget
+
+Step 5:
+Add important bills or documents
+
+Step 6:
+Personalize dashboard
+
+Include a progress indicator and skip option.
+
+4. Main Dashboard
+
+Create a highly polished dashboard.
+
+Top Header:
+
+* Search bar
+* Language switcher
+* Dark mode toggle
+* Notification bell
+* Profile menu
+
+Greeting:
+“Good Morning, Showket”
+
+Subtext:
+“Here is what is happening in your life today.”
+
+Dashboard Summary Cards:
+
+* Today’s Tasks
+* Monthly Expenses
+* Upcoming Bills
+* Goal Progress
+* Document Expiry Alerts
+* Study Hours
+
+Main Dashboard Widgets:
+
+* Today’s schedule
+* Upcoming deadlines
+* Monthly income vs expense chart
+* Expense category donut chart
+* Current goals
+* Recent transactions
+* Upcoming bills
+* Document expiry alerts
+* Habit streak
+* Study progress
+* AI-generated daily briefing
+
+Quick Actions:
+
+* Add Task
+* Add Expense
+* Add Bill
+* Add Document
+* Add Goal
+* Ask AI
+
+Right Panel:
+
+* Calendar
+* Reminders
+* AI suggestions
+* Emergency contact shortcut
+
+Create desktop, tablet, and mobile versions.
+
+5. Task Management Page
+
+Features:
+
+* Task list
+* Kanban board
+* Calendar view
+* Today
+* Upcoming
+* Completed
+* Recurring tasks
+* Priority filters
+* Category filters
+
+Task categories:
+
+* Personal
+* Study
+* Work
+* Family
+* Finance
+* Health
+
+Task form fields:
+
+* Title
+* Description
+* Category
+* Priority
+* Due date
+* Due time
+* Recurrence
+* Reminder
+* Subtasks
+* Attachments
+
+Use status labels:
+
+* To Do
+* In Progress
+* Completed
+* Overdue
+
+6. Finance and Expense Manager
+
+Create a finance dashboard using Bangladeshi currency:
+৳ BDT
+
+Summary cards:
+
+* Monthly Income
+* Monthly Expense
+* Total Savings
+* Remaining Budget
+
+Expense categories:
+
+* House Rent
+* Grocery
+* Electricity
+* Gas
+* Water
+* Internet
+* Mobile Recharge
+* Transport
+* Education
+* Medical
+* Shopping
+* Family Support
+* Loan or EMI
+* Entertainment
+
+Payment methods:
+
+* Cash
+* bKash
+* Nagad
+* Rocket
+* Bank
+* Debit Card
+* Credit Card
+
+Include:
+
+* Add income modal
+* Add expense modal
+* Budget setup
+* Transaction history
+* Category breakdown
+* Monthly trends
+* Savings goal
+* Overspending alerts
+* Export report button
+
+Charts:
+
+* Income vs Expense
+* Expense by Category
+* Weekly Spending Trend
+
+7. Bill Reminder Page
+
+Bill categories:
+
+* Electricity
+* Gas
+* Water
+* Internet
+* Mobile
+* House Rent
+* Tuition Fee
+* Credit Card
+* EMI
+* Subscription
+
+Features:
+
+* Monthly calendar
+* Upcoming bills
+* Paid bills
+* Overdue bills
+* Recurring bills
+* Payment history
+* Due-date notification
+
+Bill card information:
+
+* Bill name
+* Provider
+* Amount
+* Due date
+* Status
+* Payment method
+* Pay or mark as paid button
+
+8. Government Document Manager
+
+Create a secure document management page.
+
+Document categories:
+
+* NID
+* Passport
+* Birth Certificate
+* Driving License
+* Vehicle Fitness
+* Tax Token
+* TIN Certificate
+* Trade License
+* Visa
+* Insurance
+* Student ID
+* Land Documents
+
+Document card:
+
+* Document name
+* Document number, partially masked
+* Issue date
+* Expiry date
+* Status
+* Days remaining
+* Download
+* View
+* Edit
+* Delete
+
+Features:
+
+* Upload document
+* Expiry reminders
+* Renewal checklist
+* Official website link
+* Secure folder
+* Search and filter
+* Grid and list view
+
+Use clear security and privacy indicators.
+
+9. Student Life Manager
+
+Create a complete academic dashboard.
+
+Features:
+
+* Semester overview
+* Class routine
+* Exam routine
+* Assignment tracker
+* Attendance tracker
+* CGPA calculator
+* Credit completion tracker
+* Course list
+* Study planner
+* Project deadlines
+* Notes and resources
+
+Academic summary cards:
+
+* Current CGPA
+* Completed Credits
+* Attendance
+* Pending Assignments
+
+Class routine:
+Create a weekly timetable.
+
+Assignment cards:
+
+* Course name
+* Assignment title
+* Deadline
+* Priority
+* Submission status
+
+CGPA calculator:
+
+* Course name
+* Credit
+* Grade
+* Grade point
+
+Include an AI Study Plan button.
+
+10. Goal and Dream Planner
+
+Goal categories:
+
+* Education
+* Career
+* Finance
+* Health
+* Family
+* Business
+* Travel
+* Personal Growth
+
+Features:
+
+* Create goal
+* Add milestones
+* Progress percentage
+* Target date
+* Savings target
+* Weekly check-in
+* Goal notes
+* Vision board
+
+Create:
+
+* Goal overview page
+* Goal detail page
+* Add goal modal
+
+Example:
+Goal: Buy a New Laptop
+Target: ৳120,000
+Saved: ৳45,000
+Progress: 37.5%
+
+11. Habit Tracker
+
+Habits:
+
+* Study
+* Exercise
+* Reading
+* Water Intake
+* Sleep
+* Prayer
+* Meditation
+* Screen Time
+* Medication
+
+Features:
+
+* Daily habit checklist
+* Weekly streak
+* Monthly heatmap
+* Progress chart
+* Habit reminders
+* Add custom habit
+
+Allow optional religious habit tracking, but do not make it mandatory.
+
+12. Family Management
+
+Create a shared family dashboard.
+
+Features:
+
+* Family member profiles
+* Shared expenses
+* Medicine reminders
+* Birthdays and anniversaries
+* School or tuition fee reminders
+* Family tasks
+* Household grocery list
+* Important family documents
+* Shared goals
+
+Family member card:
+
+* Photo
+* Name
+* Relationship
+* Blood group
+* Emergency phone
+* Assigned tasks
+
+Include role-based permissions:
+
+* Family Admin
+* Adult Member
+* Limited Member
+
+13. Health Manager
+
+This module should focus on tracking and reminders, not medical diagnosis.
+
+Features:
+
+* Medicine reminder
+* Doctor appointments
+* Prescription upload
+* Weight tracker
+* Water intake
+* Sleep tracking
+* Health notes
+* Blood group
+* Allergies
+* Emergency medical profile
+
+Medicine card:
+
+* Medicine name
+* Dosage
+* Time
+* Frequency
+* Start date
+* End date
+* Taken or skipped status
+
+Add a visible disclaimer:
+“JibonOS does not provide medical diagnosis or emergency medical treatment.”
+
+14. Emergency Page
+
+Create a clear emergency assistance interface.
+
+Emergency options:
+
+* National Emergency Service
+* Police
+* Fire Service
+* Ambulance
+* Nearest Hospital
+* Blood Donor
+* Emergency Contacts
+* Lost Document Checklist
+* Disaster Preparation
+
+Use large, accessible emergency buttons.
+
+Include:
+
+* User’s emergency contacts
+* Blood group
+* Address
+* Medical conditions
+* Share emergency profile button
+
+Do not include random or unverified phone numbers in the design. Use placeholders.
+
+15. AI Life Assistant
+
+Create a modern chat interface named:
+“Jibon AI”
+
+Suggested prompts:
+
+* “Plan my day”
+* “Analyze my monthly expenses”
+* “Show my upcoming deadlines”
+* “Create an IELTS study plan”
+* “Help me manage my monthly budget”
+* “Which documents will expire soon?”
+* “Summarize my weekly progress”
+
+Features:
+
+* Chat history
+* Suggested questions
+* Voice input
+* File attachment
+* Clear chat
+* New conversation
+
+Add AI disclaimer:
+“AI suggestions are for planning and organizational support only.”
+
+16. Notifications Center
+
+Notification categories:
+
+* Tasks
+* Bills
+* Documents
+* Study
+* Goals
+* Health
+* Family
+* Security
+
+Features:
+
+* All
+* Unread
+* Important
+* Mark as read
+* Delete
+* Notification settings
+
+17. Profile and Settings
+
+Create settings pages for:
+
+* Personal information
+* Profile photo
+* Language
+* Theme
+* Time zone
+* Currency
+* Notification preferences
+* Privacy
+* Security
+* Two-factor authentication
+* Connected accounts
+* Data export
+* Delete account
+
+Default currency:
+BDT
+
+Default time zone:
+Asia/Dhaka
+
+Languages:
+
+* English
+* বাংলা
+
+18. Admin Dashboard
+
+Create a separate admin panel.
+
+Admin sidebar:
+
+* Overview
+* Users
+* Plans
+* Modules
+* Service Links
+* Notifications
+* Reports
+* Feedback
+* Support
+* Security Logs
+* Settings
+
+Admin dashboard cards:
+
+* Total users
+* Active users
+* Premium users
+* New registrations
+* Monthly revenue
+* Support requests
+
+Admin features:
+
+* User management
+* Subscription management
+* Content management
+* Official link management
+* System notification management
+* Feedback review
+* Reports
+* Security monitoring
+* Audit logs
+
+19. Subscription and Pricing Page
+
+Plans:
+Free:
+
+* Basic task management
+* Basic expense tracking
+* Limited documents
+* Limited AI usage
+
+Personal Pro:
+
+* Unlimited tasks
+* Advanced finance reports
+* Unlimited documents
+* AI assistant
+* Smart reminders
+
+Family Plan:
+
+* Shared family dashboard
+* Multiple family members
+* Shared finance
+* Shared documents
+* Family reminders
+
+Use BDT pricing placeholders.
+
+20. Empty, Loading, and Error States
+
+Design reusable states for:
+
+* No data
+* No tasks
+* No expenses
+* No bills
+* No documents
+* Loading skeleton
+* Form validation error
+* Network error
+* 404 page
+* 500 page
+* Permission denied
+* Session expired
+
+Component System:
+
+Create reusable Figma components for:
+
+* Buttons
+* Inputs
+* Select menus
+* Date pickers
+* Checkboxes
+* Radio buttons
+* Toggles
+* Tabs
+* Cards
+* Tables
+* Badges
+* Alerts
+* Modals
+* Drawers
+* Dropdown menus
+* Tooltips
+* Avatars
+* Progress bars
+* Charts
+* Calendar
+* Sidebar items
+* Mobile bottom navigation
+* Toast notifications
+* Skeleton loaders
+
+Button Variants:
+
+* Primary
+* Secondary
+* Outline
+* Ghost
+* Danger
+* Icon button
+
+Button States:
+
+* Default
+* Hover
+* Active
+* Focused
+* Disabled
+* Loading
+
+Form States:
+
+* Default
+* Focus
+* Filled
+* Success
+* Error
+* Disabled
+
+Responsive Breakpoints:
+
+* Mobile: 375 px
+* Large Mobile: 430 px
+* Tablet: 768 px
+* Laptop: 1280 px
+* Desktop: 1440 px
+
+Figma Structure:
+
+Organize the Figma file into pages:
+
+1. Cover
+2. Brand Guidelines
+3. Colors and Typography
+4. Design System
+5. Components
+6. Landing Page
+7. Authentication
+8. Onboarding
+9. User Dashboard
+10. Tasks
+11. Finance
+12. Bills
+13. Documents
+14. Student Life
+15. Goals and Habits
+16. Family
+17. Health
+18. Emergency
+19. AI Assistant
+20. Notifications
+21. Settings
+22. Admin Dashboard
+23. Responsive Mobile Screens
+24. Dark Mode
+25. Prototype Flow
+
+Prototype Interactions:
+
+Create clickable prototype flows for:
+
+Flow 1:
+Landing Page → Register → OTP Verification → Onboarding → Dashboard
+
+Flow 2:
+Dashboard → Add Expense → Save Expense → Updated Finance Chart
+
+Flow 3:
+Dashboard → Add Task → Task List → Mark Task Completed
+
+Flow 4:
+Documents → Upload Document → Add Expiry Date → Reminder Created
+
+Flow 5:
+Student Life → Add Assignment → View Assignment → Mark Submitted
+
+Flow 6:
+Goals → Create Goal → Add Milestone → Update Progress
+
+Flow 7:
+Dashboard → Ask Jibon AI → Receive Planning Suggestion
+
+Flow 8:
+Notifications → Open Bill Reminder → Mark Bill as Paid
+
+UX Requirements:
+
+* Keep navigation simple and predictable
+* Avoid overcrowding the dashboard
+* Use clear section headings
+* Use Bengali-friendly text spacing
+* Keep forms short and grouped
+* Use confirmation dialogs for destructive actions
+* Mask sensitive document and financial information
+* Maintain WCAG-friendly contrast
+* Use clear status colors with text labels
+* Add helpful empty states
+* Use tooltips for unfamiliar icons
+* Ensure all important actions are easy to use on mobile
+
+Use realistic Bangladesh-based sample data, but do not use real confidential information.
+
+Sample User:
+Name: Showket Ahamed
+Location: Dhaka, Bangladesh
+Currency: BDT
+Language: English
+User Type: University Student
+
+Sample Dashboard Data:
+
+* Monthly Income: ৳35,000
+* Monthly Expense: ৳22,500
+* Savings: ৳12,500
+* Pending Tasks: 6
+* Upcoming Bills: 3
+* Active Goals: 4
+* Documents Expiring Soon: 1
+* Pending Assignments: 2
+
+Final Output:
+Create a polished, professional, high-fidelity, fully responsive Figma prototype that feels like a real SaaS product ready for Next.js development.
+
+The design must include:
+
+* Desktop screens
+* Tablet screens
+* Mobile screens
+* Light mode
+* Dark mode
+* Reusable components
+* Auto Layout
+* Component variants
+* Proper naming conventions
+* Interactive prototype flows
+* Developer handoff-ready spacing and measurements
