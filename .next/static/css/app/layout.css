@@ -116,7 +116,9 @@
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
+    --color-primary: var(--primary);
     --color-border: var(--border);
+    --color-chart-3: var(--chart-3);
   }
 }
 @layer base {
@@ -426,6 +428,9 @@
   }
   .isolate {
     isolation: isolate;
+  }
+  .-z-10 {
+    z-index: calc(10 * -1);
   }
   .z-10 {
     z-index: 10;
@@ -2088,6 +2093,12 @@
   .ring-0 {
     --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-emerald-500\/10 {
+    --tw-shadow-color: color-mix(in srgb, oklch(69.6% 0.17 162.48) 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-emerald-500) 10%, transparent) var(--tw-shadow-alpha), transparent);
+    }
   }
   .shadow-emerald-600\/20 {
     --tw-shadow-color: color-mix(in srgb, oklch(59.6% 0.145 163.225) 20%, transparent);
@@ -4284,6 +4295,108 @@
   }
   .animate-pop {
     animation: pop 0.3s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  @keyframes letter-reveal {
+    from {
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(36px) scale(0.92);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0) scale(1);
+    }
+  }
+  @keyframes hero-glow {
+    0%, 100% {
+      transform: scale(1) translate3d(0, 0, 0);
+      opacity: 0.42;
+    }
+    50% {
+      transform: scale(1.08) translate3d(0, -10px, 0);
+      opacity: 0.62;
+    }
+  }
+  @keyframes hero-grid-drift {
+    from {
+      transform: translateY(0);
+      opacity: 0.24;
+    }
+    to {
+      transform: translateY(18px);
+      opacity: 0.10;
+    }
+  }
+  .animate-hero-badge {
+    animation: fade-up 0.55s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .animate-hero-copy {
+    opacity: 0;
+    animation: fade-up 0.7s cubic-bezier(0.22,1,0.36,1) 0.95s both;
+  }
+  .animate-hero-cta {
+    opacity: 0;
+    animation: fade-up 0.7s cubic-bezier(0.22,1,0.36,1) 1.15s both;
+  }
+  .hero-title {
+    text-wrap: balance;
+  }
+  .hero-title-line {
+    display: block;
+  }
+  .hero-letter {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(36px) scale(0.92);
+    animation: letter-reveal 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+    will-change: transform, opacity, filter;
+  }
+  .hero-letter-accent {
+    color: var(--color-primary);
+    text-shadow: 0 0 24px var(--color-primary);
+    @supports (color: color-mix(in lab, red, red)) {
+      text-shadow: 0 0 24px color-mix(in srgb, var(--color-primary) 26%, transparent);
+    }
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(18px);
+    animation: hero-glow 8s ease-in-out infinite;
+  }
+  .hero-orb-left {
+    top: 2rem;
+    left: -3rem;
+    width: 14rem;
+    height: 14rem;
+    background: var(--color-primary);
+    @supports (color: color-mix(in lab, red, red)) {
+      background: color-mix(in srgb, var(--color-primary) 22%, transparent);
+    }
+  }
+  .hero-orb-right {
+    top: 5rem;
+    right: -2rem;
+    width: 18rem;
+    height: 18rem;
+    background: var(--color-chart-3);
+    @supports (color: color-mix(in lab, red, red)) {
+      background: color-mix(in srgb, var(--color-chart-3) 18%, transparent);
+    }
+    animation-delay: 1.6s;
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, var(--color-border) 1px, transparent 1px), linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-image: linear-gradient(to right, color-mix(in srgb, var(--color-border) 65%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--color-border) 65%, transparent) 1px, transparent 1px);
+    }
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at center, black 24%, transparent 78%);
+    animation: hero-grid-drift 7s ease-in-out infinite alternate;
   }
   .stagger-1 {
     animation-delay: 0.05s;

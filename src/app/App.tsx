@@ -254,18 +254,27 @@ function LandingPage({ onNavigate, dark, setDark }: { onNavigate: (p: Page) => v
       </header>
 
       {/* Hero */}
-      <section id="hero" className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center">
-        <div className="inline-flex items-center gap-2 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 px-4 py-1.5 rounded-full text-sm font-medium mb-6 border border-emerald-200 dark:border-emerald-800">
-          <Zap size={14} /> Built for Bangladesh 🇧🇩
+      <section id="hero" className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center">
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <div className="hero-orb hero-orb-left" />
+          <div className="hero-orb hero-orb-right" />
+          <div className="hero-grid" />
         </div>
-        <h1 className="text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6 max-w-4xl mx-auto">
-          Your Entire Life,<br />
-          <span className="text-emerald-600">Organized</span> in One Place
+        <div className="animate-hero-badge inline-flex items-center gap-2 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 px-4 py-1.5 rounded-full text-sm font-medium mb-6 border border-emerald-200 dark:border-emerald-800 shadow-sm shadow-emerald-500/10">
+          <Zap size={14} className="animate-pop" /> Built for Bangladesh
+        </div>
+        <h1 className="hero-title text-5xl sm:text-6xl font-extrabold text-foreground leading-tight mb-6 max-w-4xl mx-auto">
+          <span className="hero-title-line">
+            <span className="hero-letter" style={{ animationDelay: "0.05s" }}>Y</span><span className="hero-letter" style={{ animationDelay: "0.085s" }}>o</span><span className="hero-letter" style={{ animationDelay: "0.12s" }}>u</span><span className="hero-letter" style={{ animationDelay: "0.155s" }}>r</span><span className="hero-letter" style={{ animationDelay: "0.19s" }}>&nbsp;</span><span className="hero-letter" style={{ animationDelay: "0.225s" }}>E</span><span className="hero-letter" style={{ animationDelay: "0.26s" }}>n</span><span className="hero-letter" style={{ animationDelay: "0.295s" }}>t</span><span className="hero-letter" style={{ animationDelay: "0.33s" }}>i</span><span className="hero-letter" style={{ animationDelay: "0.365s" }}>r</span><span className="hero-letter" style={{ animationDelay: "0.4s" }}>e</span><span className="hero-letter" style={{ animationDelay: "0.435s" }}>&nbsp;</span><span className="hero-letter" style={{ animationDelay: "0.47s" }}>L</span><span className="hero-letter" style={{ animationDelay: "0.505s" }}>i</span><span className="hero-letter" style={{ animationDelay: "0.54s" }}>f</span><span className="hero-letter" style={{ animationDelay: "0.575s" }}>e</span><span className="hero-letter" style={{ animationDelay: "0.61s" }}>,</span>
+          </span>
+          <span className="hero-title-line">
+            <span className="hero-letter hero-letter-accent" style={{ animationDelay: "0.68s" }}>O</span><span className="hero-letter hero-letter-accent" style={{ animationDelay: "0.715s" }}>r</span><span className="hero-letter hero-letter-accent" style={{ animationDelay: "0.75s" }}>g</span><span className="hero-letter hero-letter-accent" style={{ animationDelay: "0.785s" }}>a</span><span className="hero-letter hero-letter-accent" style={{ animationDelay: "0.82s" }}>n</span><span className="hero-letter hero-letter-accent" style={{ animationDelay: "0.855s" }}>i</span><span className="hero-letter hero-letter-accent" style={{ animationDelay: "0.89s" }}>z</span><span className="hero-letter hero-letter-accent" style={{ animationDelay: "0.925s" }}>e</span><span className="hero-letter hero-letter-accent" style={{ animationDelay: "0.96s" }}>d</span><span className="hero-letter" style={{ animationDelay: "1.01s" }}>&nbsp;</span><span className="hero-letter" style={{ animationDelay: "1.045s" }}>i</span><span className="hero-letter" style={{ animationDelay: "1.08s" }}>n</span><span className="hero-letter" style={{ animationDelay: "1.115s" }}>&nbsp;</span><span className="hero-letter" style={{ animationDelay: "1.15s" }}>O</span><span className="hero-letter" style={{ animationDelay: "1.185s" }}>n</span><span className="hero-letter" style={{ animationDelay: "1.22s" }}>e</span><span className="hero-letter" style={{ animationDelay: "1.255s" }}>&nbsp;</span><span className="hero-letter" style={{ animationDelay: "1.29s" }}>P</span><span className="hero-letter" style={{ animationDelay: "1.325s" }}>l</span><span className="hero-letter" style={{ animationDelay: "1.36s" }}>a</span><span className="hero-letter" style={{ animationDelay: "1.395s" }}>c</span><span className="hero-letter" style={{ animationDelay: "1.43s" }}>e</span>
+          </span>
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="animate-hero-copy text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
           Manage your tasks, expenses, bills, documents, studies, goals, family responsibilities, and daily plans with LifeSync.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up stagger-2">
+        <div className="animate-hero-cta flex flex-col sm:flex-row items-center justify-center gap-4">
           <button onClick={() => onNavigate("register")} className="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-xl font-semibold text-base hover:opacity-90 hover:shadow-xl hover:shadow-emerald-600/30 hover:-translate-y-0.5 transition-all shadow-lg shadow-emerald-600/20">
             Start for Free <ArrowRight size={16} />
           </button>
@@ -273,8 +282,6 @@ function LandingPage({ onNavigate, dark, setDark }: { onNavigate: (p: Page) => v
             View Demo <Eye size={16} />
           </button>
         </div>
-
-        {/* Dashboard preview mockup */}
         <div className="mt-16 relative max-w-5xl mx-auto">
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10 pointer-events-none" />
           <div className="bg-card border border-border rounded-2xl shadow-2xl overflow-hidden">
@@ -3822,3 +3829,4 @@ export default function App() {
     </AppShell>
   );
 }
+
