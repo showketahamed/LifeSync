@@ -23,6 +23,18 @@ type Page = "landing" | "login" | "register" | "dashboard" | "tasks" | "finance"
   "bills" | "documents" | "student" | "goals" | "habits" | "family" | "health" |
   "emergency" | "ai" | "notifications" | "settings" | "admin";
 
+type Transaction = typeof transactions[number];
+type DocumentItem = {
+  id: number;
+  name: string;
+  number: string;
+  issued: string;
+  expiry: string | null;
+  status: string;
+  daysLeft: number | null;
+  type: string;
+};
+
 function LogoMark({ className = "w-8 h-8" }: { className?: string }) {
   return (
     <svg viewBox="0 0 96 96" aria-hidden="true" className={className}>
@@ -153,9 +165,9 @@ function Badge({ children, variant = "default" }: { children: React.ReactNode; v
   );
 }
 
-function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function Card({ children, className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={`bg-card text-card-foreground rounded-xl border border-border shadow-sm ${className}`}>
+    <div {...props} className={`bg-card text-card-foreground rounded-xl border border-border shadow-sm ${className}`}>
       {children}
     </div>
   );
@@ -1162,7 +1174,7 @@ function TasksPage() {
 function FinancePage() {
   const [showModal, setShowModal] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
-  const [txList, setTxList] = useState(transactions);
+  const [txList, setTxList] = useState<Transaction[]>(transactions);
   const [form, setForm] = useState({ desc: "", category: "Grocery", method: "bKash", type: "debit", amount: "", date: "" });
 
   const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(null), 2500); };
@@ -1170,6 +1182,7 @@ function FinancePage() {
   const addTransaction = () => {
     if (!form.desc.trim() || !form.amount) return;
     const newTx = {
+      id: Date.now(),
       desc: form.desc,
       category: form.category,
       type: form.type as "credit" | "debit",
@@ -1427,14 +1440,13 @@ function BillsPage() {
 
 // ─── Documents Page ───────────────────────────────────────────────────────────
 function DocumentsPage() {
-  type Doc = typeof documents[number];
-  const [docList, setDocList] = useState(documents as Doc[]);
-  const [viewDoc, setViewDoc] = useState<Doc | null>(null);
-  const [editDoc, setEditDoc] = useState<Doc | null>(null);
+  const [docList, setDocList] = useState<DocumentItem[]>(documents);
+  const [viewDoc, setViewDoc] = useState<DocumentItem | null>(null);
+  const [editDoc, setEditDoc] = useState<DocumentItem | null>(null);
   const [editForm, setEditForm] = useState({ name: "", number: "", issued: "", expiry: "" });
   const [downloadToast, setDownloadToast] = useState<string | null>(null);
 
-  const openEdit = (doc: Doc) => {
+  const openEdit = (doc: DocumentItem) => {
     setEditDoc(doc);
     setEditForm({ name: doc.name, number: doc.number, issued: doc.issued, expiry: doc.expiry ?? "" });
   };
@@ -1448,7 +1460,7 @@ function DocumentsPage() {
     setEditDoc(null);
   };
 
-  const handleDownload = (doc: Doc) => {
+  const handleDownload = (doc: DocumentItem) => {
     setDownloadToast(`Downloading "${doc.name}"...`);
     setTimeout(() => setDownloadToast(null), 2500);
   };
